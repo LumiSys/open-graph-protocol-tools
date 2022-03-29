@@ -20,8 +20,6 @@
             "OpenGraph\\": "src/OpenGraph/"
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
     "config": {
         "optimize-autoloader": true
     },

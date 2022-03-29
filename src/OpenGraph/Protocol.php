@@ -1,4 +1,15 @@
-<?php
+<?php /** @noinspection PhpUnusedLocalVariableInspection */
+
+/** @noinspection PhpUnused */
+
+
+namespace OpenGraph;
+
+
+use OpenGraph\Media\Audio as OpenGraphProtocolAudio;
+use OpenGraph\Media\Image as OpenGraphProtocolImage;
+use OpenGraph\Media\Video as OpenGraphProtocolVideo;
+
 /**
  * Open Graph Protocol data class. Define and validate OGP values.
  *
@@ -8,15 +19,6 @@
  * @copyright Public Domain
  */
 
-/**
- * Open Graph protocol type labels are passed through gettext message interpreters for the current context.
- * Fake the interpreter function alias if not defined
- */
-if ( !function_exists('_') ):
-function _( $text, $domain='' ) {
-	return $text;
-}
-endif;
 
 /**
  * Validate inputted text against Open Graph Protocol requirements by parameter.
@@ -24,7 +26,7 @@ endif;
  * @link http://ogp.me/ Open Graph Protocol
  * @version 1.3
  */
-class OpenGraphProtocol {
+class Protocol {
 	/**
 	 * Version
 	 * @var string
@@ -134,12 +136,13 @@ class OpenGraphProtocol {
 	 */
 	protected $video;
 
-	/**
-	 * Build Open Graph protocol HTML markup based on an array
-	 *
-	 * @param array $og associative array of OGP properties and values
-	 * @param string $prefix optional prefix to prepend to all properties
-	 */
+    /**
+     * Build Open Graph protocol HTML markup based on an array
+     *
+     * @param array $og associative array of OGP properties and values
+     * @param string $prefix optional prefix to prepend to all properties
+     * @return string|void
+     */
 	public static function buildHTML( array $og, $prefix=self::PREFIX ) {
 		if ( empty($og) )
 			return;
@@ -458,10 +461,11 @@ class OpenGraphProtocol {
 		return $this->type;
 	}
 
-	/**
-	 *
-	 * @param String type slug
-	 */
+    /**
+     *
+     * @param String type slug
+     * @return Protocol
+     */
 	public function setType( $type ) {
 		if ( is_string($type) && in_array( $type, self::supported_types(true), true ) )
 			$this->type = $type;
@@ -475,9 +479,10 @@ class OpenGraphProtocol {
 		return $this->title;
 	}
 
-	/**
-	 * @param String $title document title
-	 */
+    /**
+     * @param String $title document title
+     * @return Protocol
+     */
 	public function setTitle( $title ) {
 		if ( is_string($title) ) {
 			$title = trim( $title );
@@ -496,9 +501,10 @@ class OpenGraphProtocol {
 		return $this->site_name;
 	}
 
-	/**
-	 * @param String $site_name Site name
-	 */
+    /**
+     * @param String $site_name Site name
+     * @return Protocol
+     */
 	public function setSiteName( $site_name ) {
 		if ( is_string($site_name) && !empty($site_name) ) {
 			$site_name = trim( $site_name );
@@ -517,9 +523,10 @@ class OpenGraphProtocol {
 		return $this->description;
 	}
 
-	/**
-	 * @param String $description Document description
-	 */
+    /**
+     * @param String $description Document description
+     * @return Protocol
+     */
 	public function setDescription( $description ) {
 		if ( is_string($description) && !empty($description) ) {
 			$description = trim( $description );
@@ -538,9 +545,10 @@ class OpenGraphProtocol {
 		return $this->url;
 	}
 
-	/**
-	 * @param String $url Canonical URL
-	 */
+    /**
+     * @param String $url Canonical URL
+     * @return Protocol
+     */
 	public function setURL( $url ) {
 		if ( is_string( $url ) && !empty( $url ) ) {
 			$url = trim($url);
@@ -573,9 +581,10 @@ class OpenGraphProtocol {
 		return $this->locale;
 	}
 
-	/**
-	 * @var string $locale locale in the format language_TERRITORY
-	 */
+    /**
+     * @return Protocol
+     * @var string $locale locale in the format language_TERRITORY
+     */
 	public function setLocale( $locale ) {
 		if ( is_string($locale) && in_array($locale, static::supported_locales(true)) )
 			$this->locale = $locale;
@@ -589,12 +598,13 @@ class OpenGraphProtocol {
 		return $this->image;
 	}
 
-	/**
-	 * Add an image.
-	 * The first image added is given priority by the Open Graph Protocol spec. Implementors may choose a different image based on size requirements or preferences.
-	 *
-	 * @param OpenGraphProtocolImage $image image object to add
-	 */
+    /**
+     * Add an image.
+     * The first image added is given priority by the Open Graph Protocol spec. Implementors may choose a different image based on size requirements or preferences.
+     *
+     * @param OpenGraphProtocolImage $image image object to add
+     * @return Protocol|void
+     */
 	public function addImage( OpenGraphProtocolImage $image ) {
 		$image_url = $image->getURL();
 		if ( empty($image_url) )
@@ -615,12 +625,13 @@ class OpenGraphProtocol {
 		return $this->audio;
 	}
 
-	/**
-	 * Add an audio reference
-	 * The first audio is given priority by the Open Graph protocol spec.
-	 *
-	 * @param OpenGraphProtocolAudio $audio audio object to add
-	 */
+    /**
+     * Add an audio reference
+     * The first audio is given priority by the Open Graph protocol spec.
+     *
+     * @param OpenGraphProtocolAudio $audio audio object to add
+     * @return Protocol|void
+     */
 	public function addAudio( OpenGraphProtocolAudio $audio ) {
 		$audio_url = $audio->getURL();
 		if ( empty($audio_url) )
@@ -641,12 +652,13 @@ class OpenGraphProtocol {
 		return $this->video;
 	}
 
-	/**
-	 * Add a video reference
-	 * The first video is given priority by the Open Graph protocol spec. Implementors may choose a different video based on size requirements or preferences.
-	 *
-	 * @param OpenGraphProtocolVideo $video video object to add
-	 */
+    /**
+     * Add a video reference
+     * The first video is given priority by the Open Graph protocol spec. Implementors may choose a different video based on size requirements or preferences.
+     *
+     * @param OpenGraphProtocolVideo $video video object to add
+     * @return Protocol|void
+     */
 	public function addVideo( OpenGraphProtocolVideo $video ) {
 		$video_url = $video->getURL();
 		if ( empty($video_url) )
@@ -660,7 +672,3 @@ class OpenGraphProtocol {
 		return $this;
 	}
 }
-
-include_once dirname(__FILE__) . '/media.php';  // image, video, audio
-include_once dirname(__FILE__) . '/objects.php'; // global objects: profile, article
-?>

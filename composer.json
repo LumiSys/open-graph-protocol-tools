@@ -1,0 +1,33 @@
+{
+    "name": "lumisys/open-graph-protocol-tools",
+    "description": "Open Graph protocol",
+    "keywords": ["Open Graph", "meta"],
+    "type": "library",
+    "homepage": "https://github.com/lumisys/open-graph-protocol-tools",
+    "support": {
+        "source": "https://github.com/niallkennedy/open-graph-protocol-tools",
+        "issues": "https://github.com/niallkennedy/open-graph-protocol-tools/issues"
+    },
+    "require": {
+        "php": "^5.3 || ^7.0 || ^8.0",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "files": [
+            "src/functions.php"
+        ],
+        "psr-4": {
+            "OpenGraph\\": "src/OpenGraph/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}
